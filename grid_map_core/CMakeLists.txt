@@ -1,126 +1,92 @@
-cmake_minimum_required(VERSION 2.8.3)
+# Set cmake version
+cmake_minimum_required(VERSION 3.0.2)
+
+# Set project name
 project(grid_map_core)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+# import Eigen3
+find_package(Eigen3 3.2.2 MODULE REQUIRED)
 
-## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS)
-
-## Define Eigen addons. 
+## Define Eigen addons.
 include(cmake/${PROJECT_NAME}-extras.cmake)
 
-## System dependencies are found with CMake's conventions
-#find_package(Eigen3 REQUIRED)
-# Solution to find Eigen3 with Saucy.
-find_package(Eigen3 QUIET)
-if(NOT EIGEN3_FOUND)
-  find_package(PkgConfig REQUIRED)
-  pkg_check_modules(EIGEN3 REQUIRED eigen3)
-  set(EIGEN3_INCLUDE_DIR ${EIGEN3_INCLUDE_DIRS})
-endif()
+#########
+# Build #
+#########
 
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  INCLUDE_DIRS
-    include
-    ${EIGEN3_INCLUDE_DIR}
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-  DEPENDS
-    #Eigen3
-  CFG_EXTRAS
-    ${PROJECT_NAME}-extras.cmake
-)
-
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
-)
-
-## Declare a cpp library
+# Add the library target
 add_library(${PROJECT_NAME}
-   src/GridMap.cpp
-   src/GridMapMath.cpp
-   src/SubmapGeometry.cpp
-   src/BufferRegion.cpp
-   src/Polygon.cpp
-   src/iterators/GridMapIterator.cpp
-   src/iterators/SubmapIterator.cpp
-   src/iterators/CircleIterator.cpp
-   src/iterators/EllipseIterator.cpp
-   src/iterators/SpiralIterator.cpp
-   src/iterators/PolygonIterator.cpp
-   src/iterators/LineIterator.cpp
-   src/iterators/SlidingWindowIterator.cpp
+  src/BufferRegion.cpp
+  src/GridMap.cpp
+  src/GridMapMath.cpp
+  src/Polygon.cpp
+  src/SubmapGeometry.cpp
+  src/iterators/CircleIterator.cpp
+  src/iterators/EllipseIterator.cpp
+  src/iterators/GridMapIterator.cpp
+  src/iterators/LineIterator.cpp
+  src/iterators/PolygonIterator.cpp
+  src/iterators/SlidingWindowIterator.cpp
+  src/iterators/SubmapIterator.cpp
 )
+
+# set target include directories
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    ${EIGEN3_INCLUDE_DIR}
+  PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+# add an alias
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
+  PUBLIC
+    eigen
 )
 
-#############
-## Install ##
-#############
+# set target compile options
+target_compile_options(${PROJECT_NAME}
+  PRIVATE
+    $<$<CONFIG:Debug>:-Werror>
+)
 
-# Mark executables and/or libraries for installation
+###########
+# Install #
+###########
+
 install(
   TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  EXPORT ${PROJECT_NAME}Config
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  INCLUDES DESTINATION include
 )
 
-# Mark cpp header files for installation
+# This makes the project importable from the install directory
+# Put config file in per-project dir (name MUST match), can also
+# just go into 'cmake'.
 install(
-  DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.hpp"
+  EXPORT ${PROJECT_NAME}Config
+  DESTINATION share/${PROJECT_NAME}/cmake
 )
 
-# Mark other files for installation
+# mark other files for installation
 install(
   DIRECTORY doc
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
-#############
-## Testing ##
-#############
+# This makes the project importable from the build directory
+export(
+  TARGETS ${PROJECT_NAME}
+  FILE ${PROJECT_NAME}.cmake
+)
 
-if(CATKIN_ENABLE_TESTING)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}-test
-  test/test_grid_map_core.cpp
-  test/GridMapMathTest.cpp
-  test/GridMapTest.cpp
-  test/GridMapIteratorTest.cpp
-  test/LineIteratorTest.cpp
-  test/EllipseIteratorTest.cpp
-  test/SubmapIteratorTest.cpp
-  test/PolygonIteratorTest.cpp
-  test/PolygonTest.cpp
-  test/EigenPluginsTest.cpp
-  test/SpiralIteratorTest.cpp
-  test/SlidingWindowIteratorTest.cpp
-  )
-endif()
-
-if(TARGET ${PROJECT_NAME}-test)
-  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-endif()
+###########
+# Testing #
+###########

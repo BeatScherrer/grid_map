@@ -1,2 +1,0 @@
-/usr/bin/ar cr libgrid_map_costmap_2d.a  
-/usr/bin/ranlib libgrid_map_costmap_2d.a

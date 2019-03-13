@@ -1,107 +1,45 @@
-cmake_minimum_required(VERSION 2.8.3)
+# Set cmake version
+cmake_minimum_required(VERSION 3.0.2)
+
+# Set project name
 project(grid_map_cv)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+# import openCV
+find_package(OpenCV REQUIRED CONFIG)
 
-## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS
-  grid_map_core
-  cv_bridge
-  filters
-)
+#########
+# Build #
+#########
 
-find_package(OpenCV REQUIRED
-  COMPONENTS
-  opencv_photo
-)
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  INCLUDE_DIRS
-    include
-  LIBRARIES
-    ${PROJECT_NAME}
-  CATKIN_DEPENDS
-    grid_map_core
-    cv_bridge
-    filters
-  DEPENDS
-    OpenCV
-)
-
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
-)
-
-## Declare a cpp library
+# Add the library target
 add_library(${PROJECT_NAME}
   src/GridMapCvProcessing.cpp
-  src/InpaintFilter.cpp
+  )
+
+# set target include directories
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+  $<INSTALL_INTERFACE:include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  ${}
 )
+
+# add an alias
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-)
+  PUBLIC
+    grid_map_core
+    OpenCV
+  )
 
-add_dependencies(${PROJECT_NAME}
-  ${catkin_EXPORTED_TARGETS}
-)
+# set target compile options
+target_compile_options(${PROJECT_NAME}
+  PRIVATE
+  $<$<CONFIG:Debug>:-Werror>
+  )
 
-#############
-## Install ##
-#############
-
-# Mark executables and/or libraries for installation
-install(
-  TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-# Mark cpp header files for installation
-install(
-  DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.hpp"
-)
-
-# Mark other files for installation.
-install(
-  FILES filter_plugins.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
-#############
-## Testing ##
-#############
-
-if(CATKIN_ENABLE_TESTING)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-## Add gtest based cpp test target and link libraries
-catkin_add_gtest(${PROJECT_NAME}-test
-  test/test_grid_map_cv.cpp
-  test/GridMapCvTest.cpp
-  test/GridMapCvProcessingTest.cpp)
-endif()
-
-if(TARGET ${PROJECT_NAME}-test)
-  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-endif()
+###########
+# Install #
+###########
 

@@ -36,5 +36,5 @@
 # OS X
 .DS_Store
 
-# Builds
+# Build folders
 cmake-build-*

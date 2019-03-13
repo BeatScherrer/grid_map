@@ -1,2 +1,0 @@
-/home/schb/grid_map/cmake-build-debug/grid_map_core/CMakeFiles/grid_map_core.dir
-/home/schb/grid_map/cmake-build-debug/grid_map_costmap_2d/CMakeFiles/grid_map_costmap_2d.dir

@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 
 # Set project name
-project(grid_map_core)
+project(grid_map_core VERSION 1.0.0)
 
 add_compile_options(-std=c++11)
 
@@ -86,3 +86,19 @@ install(FILES "${PROJECT_NAME}Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJE
 ###########
 # Testing #
 ###########
+
+#############
+# Packaging #
+#############
+
+message(STATUS ${PROJECT_VERSION})
+
+set(CPACK_PACKAGE_NAME "grid_map")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "grid_map package - CPack installation")
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Beat Scherrer")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+include(CPack)

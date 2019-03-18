@@ -1,0 +1,49 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Eclipse
+.cproject
+.project
+.settings
+*.pydevproject
+
+# OS X
+<<<<<<< HEAD
+.DS_Store
+
+# Build folders
+cmake-build-*
+||||||| merged common ancestors
+.DS_Store
+=======
+.DS_Store
+
+# Build folders
+cmake-build-*
+>>>>>>> refactor_cmake

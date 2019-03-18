@@ -4,8 +4,10 @@ cmake_minimum_required(VERSION 3.0.2)
 # Set project name
 project(grid_map_core)
 
+add_compile_options(-std=c++11)
+
 # import Eigen3
-find_package(Eigen3 3.2.2 MODULE REQUIRED)
+find_package(Eigen3 3.2.2 REQUIRED)
 
 ## Define Eigen addons.
 include(cmake/${PROJECT_NAME}-extras.cmake)
@@ -33,7 +35,7 @@ add_library(${PROJECT_NAME}
 # set target include directories
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:include/${PROJECT_NAME}> # <prefix>/include/${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     ${EIGEN3_INCLUDE_DIR}
   PRIVATE
@@ -42,11 +44,6 @@ target_include_directories(${PROJECT_NAME}
 
 # add an alias
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-
-target_link_libraries(${PROJECT_NAME}
-  PUBLIC
-    eigen
-)
 
 # set target compile options
 target_compile_options(${PROJECT_NAME}
@@ -58,34 +55,33 @@ target_compile_options(${PROJECT_NAME}
 # Install #
 ###########
 
-install(
-  TARGETS ${PROJECT_NAME}
-  EXPORT ${PROJECT_NAME}Config
+include(GNUInstallDirs)
+
+# 'make install' to the right locations
+install(TARGETS ${PROJECT_NAME}
+  EXPORT "${PROJECT_NAME}Targets"
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-  INCLUDES DESTINATION include
 )
+install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # This makes the project importable from the install directory
-# Put config file in per-project dir (name MUST match), can also
-# just go into 'cmake'.
-install(
-  EXPORT ${PROJECT_NAME}Config
-  DESTINATION share/${PROJECT_NAME}/cmake
-)
+# Put config file in per-project dir.
+install(EXPORT "${PROJECT_NAME}Targets"
+  FILE "${PROJECT_NAME}Targets.cmake"
+  NAMESPACE "${PROJECT_NAME}::"
+  DESTINATION lib/cmake/${PROJECT_NAME})
 
-# mark other files for installation
-install(
-  DIRECTORY doc
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
+# generate config.cmake
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  VERSION "${PROJECT_NAME}_VERSION"
+  COMPATIBILITY SameMajorVersion
+  )
 
-# This makes the project importable from the build directory
-export(
-  TARGETS ${PROJECT_NAME}
-  FILE ${PROJECT_NAME}.cmake
-)
+# install config.cmake files
+install(FILES "${PROJECT_NAME}Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+  DESTINATION "lib/cmake/${PROJECT_NAME}")
 
 ###########
 # Testing #

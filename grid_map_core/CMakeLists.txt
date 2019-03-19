@@ -35,7 +35,7 @@ add_library(${PROJECT_NAME}
 # set target include directories
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    $<INSTALL_INTERFACE:include> # <prefix>/include/${PROJECT_NAME}
+    $<INSTALL_INTERFACE:include/${PROJECT_NAME}> # <prefix>/include/${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     ${EIGEN3_INCLUDE_DIR}
   PRIVATE

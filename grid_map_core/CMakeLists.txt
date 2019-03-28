@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 
 # Set project name
-project(grid_map_core VERSION 1.0.0)
+project(grid_map_core VERSION 1.6.1)
 
 add_compile_options(-std=c++11)
 
@@ -97,8 +97,6 @@ install(FILES
 #############
 # Packaging #
 #############
-
-message(STATUS ${PROJECT_VERSION})
 
 set(CPACK_PACKAGE_NAME "grid_map")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "grid_map package - CPack installation")

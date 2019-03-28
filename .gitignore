@@ -34,7 +34,7 @@
 *.pydevproject
 
 # Clion
-.idea
+.idea/
 
 # OS X
 .DS_Store

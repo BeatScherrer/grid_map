@@ -42,6 +42,7 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+
 # add an alias
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
@@ -50,10 +51,6 @@ target_compile_options(${PROJECT_NAME}
   PRIVATE
     $<$<CONFIG:Debug>:-Werror>
 )
-
-
-get_target_property(PROP grid_map_core COMPILE_OPTIONS)
-message(STATUS ${PROP})
 
 ###########
 # Install #
@@ -72,19 +69,25 @@ install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 # This makes the project importable from the install directory
 # Put config file in per-project dir.
 install(EXPORT "${PROJECT_NAME}Targets"
-  FILE "${PROJECT_NAME}Targets.cmake"
-  NAMESPACE "${PROJECT_NAME}::"
-  DESTINATION lib/cmake/${PROJECT_NAME})
+  FILE
+    "${PROJECT_NAME}Targets.cmake"
+  NAMESPACE
+    "${PROJECT_NAME}::"
+  DESTINATION
+    lib/cmake/${PROJECT_NAME})
 
 # generate config.cmake
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
-  VERSION "${PROJECT_NAME}_VERSION"
-  COMPATIBILITY SameMajorVersion
+  VERSION
+    "${PROJECT_NAME}_VERSION"
+  COMPATIBILITY
+    SameMajorVersion
   )
 
 # install config.cmake files
-install(FILES "${PROJECT_NAME}Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+install(FILES
+  "${PROJECT_NAME}Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   DESTINATION "lib/cmake/${PROJECT_NAME}")
 
 ###########

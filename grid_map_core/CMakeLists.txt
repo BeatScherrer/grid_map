@@ -6,6 +6,8 @@ project(grid_map_core VERSION 1.6.1)
 
 add_compile_options(-std=c++11)
 
+add_compile_options(-fPIC)
+
 # import Eigen3
 find_package(Eigen3 3.2.2 REQUIRED)
 
@@ -52,18 +54,23 @@ target_compile_options(${PROJECT_NAME}
     $<$<CONFIG:Debug>:-Werror>
 )
 
+
+
 ###########
 # Install #
 ###########
 
 include(GNUInstallDirs)
 
-# 'make install' to the right locations
+# create export set
 install(TARGETS ${PROJECT_NAME}
   EXPORT "${PROJECT_NAME}Targets"
-  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
 )
+
+set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_INSTALL_LIBDIR})
+
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 # This makes the project importable from the install directory
@@ -107,3 +114,6 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 include(CPack)
+
+get_target_property(test grid_map_core::grid_map_core LIBRARY_OUTPUT_DIRECTORY)
+message(INFO " LIBRARY_OUTPUT_DIRECTORY: ${test}")

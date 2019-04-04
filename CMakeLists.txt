@@ -18,3 +18,4 @@ endif()
 
 # Add subdirectories
 add_subdirectory(grid_map_core)
+add_subdirectory(grid_map_sdf)

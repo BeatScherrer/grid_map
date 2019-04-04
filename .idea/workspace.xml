@@ -3,6 +3,7 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
       <config projectName="grid_map" targetName="grid_map_core" />
+      <config projectName="grid_map" targetName="grid_map_sdf" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -13,9 +14,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c254b943-7f01-4b91-85c9-caa4993cbb54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grid_map/package.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grid_map_core/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/grid_map_core/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/grid_map_core/package.xml" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,21 +40,22 @@
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="LICENSE" value="1" />
-          <entry key="cmake" value="9" />
-          <entry key="cpp" value="7" />
+          <entry key="cmake" value="10" />
+          <entry key="cpp" value="8" />
           <entry key="gitignore" value="2" />
           <entry key="h" value="1" />
-          <entry key="hpp" value="20" />
+          <entry key="hpp" value="21" />
           <entry key="jenkins-pipeline" value="1" />
-          <entry key="txt" value="15" />
+          <entry key="rst" value="2" />
+          <entry key="txt" value="17" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="24" />
-          <entry key="ObjectiveC" value="28" />
-          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="CMakeLists.txt" value="27" />
+          <entry key="ObjectiveC" value="30" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -62,12 +64,12 @@
           <entry key="cmake" value="2525" />
           <entry key="cpp" value="129" />
           <entry key="gitignore" value="51" />
-          <entry key="txt" value="8512" />
+          <entry key="txt" value="8942" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CMakeLists.txt" value="11037" />
+          <entry key="CMakeLists.txt" value="11467" />
           <entry key="Doxygen file" value="1" />
           <entry key="ObjectiveC" value="128" />
           <entry key="PLAIN_TEXT" value="51" />
@@ -82,8 +84,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+                <state relative-caret-position="420">
+                  <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
                 </state>
               </provider>
             </entry>
@@ -92,16 +94,44 @@
             <entry file="file://$PROJECT_DIR$/.gitignore">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="756">
-                  <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+                  <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/grid_map_core/CMakeLists.txt">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grid_map_sdf/include/grid_map_sdf/SignedDistanceField.hpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="604">
-                  <caret line="83" column="15" lean-forward="true" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
+                <state relative-caret-position="651">
+                  <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grid_map_sdf/CHANGELOG.rst">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grid_map_core/CHANGELOG.rst">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/grid_map_sdf/CMakeLists.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="168">
+                  <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/grid_map_sdf/src/SignedDistanceField.cpp">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="338">
+                  <caret line="38" column="8" selection-start-line="38" selection-start-column="2" selection-end-line="38" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
@@ -119,20 +149,18 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="10" column="80" selection-start-line="10" selection-start-column="80" selection-end-line="10" selection-end-column="80" />
+                <state relative-caret-position="378">
+                  <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1095" />
-              </provider>
+              <provider selected="true" editor-type-id="text-editor" />
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
@@ -143,19 +171,6 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/grid_map_core/grid_map_coreConfigVersion.cmake">
               <provider selected="true" editor-type-id="text-editor" />
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/grid_map_core/include/grid_map_core/GridMap.hpp">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="399">
-                  <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
-                  <folding>
-                    <element signature="e#139#176#0" expanded="true" />
-                    <element signature="e#271#288#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
@@ -176,6 +191,15 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/grid_map_core/test/test_grid_map_core.cpp">
               <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/grid_map_core/CMakeLists.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="1474">
+                  <caret line="106" selection-start-line="106" selection-end-line="106" />
+                </state>
+              </provider>
             </entry>
           </file>
         </leaf>
@@ -207,12 +231,13 @@
         <option value="$PROJECT_DIR$/grid_map/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/grid_map_octomap/grid_map_octomapConfig.cmake" />
         <option value="$PROJECT_DIR$/grid_map_octomap/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/grid_map_sdf/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/grid_map_sdf/grid-map-sdfConfig.cmake" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake" />
+        <option value="$PROJECT_DIR$/grid_map_sdf/include/grid_map_sdf/SignedDistanceField.hpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/grid_map_core/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake" />
+        <option value="$PROJECT_DIR$/grid_map_sdf/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -232,6 +257,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -242,29 +268,23 @@
             <path>
               <item name="grid_map" type="b2602c69:ProjectViewProjectNode" />
               <item name="grid_map" type="462c0819:PsiDirectoryNode" />
-              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="grid_map" type="b2602c69:ProjectViewProjectNode" />
-              <item name="grid_map" type="462c0819:PsiDirectoryNode" />
-              <item name="cmake-build-debug" type="462c0819:PsiDirectoryNode" />
               <item name="grid_map_core" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="grid_map" type="b2602c69:ProjectViewProjectNode" />
               <item name="grid_map" type="462c0819:PsiDirectoryNode" />
-              <item name="grid_map" type="462c0819:PsiDirectoryNode" />
+              <item name="grid_map_core" type="462c0819:PsiDirectoryNode" />
+              <item name="cmake" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="grid_map" type="b2602c69:ProjectViewProjectNode" />
               <item name="grid_map" type="462c0819:PsiDirectoryNode" />
-              <item name="grid_map_core" type="462c0819:PsiDirectoryNode" />
+              <item name="grid_map_sdf" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -297,9 +317,15 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="grid_map_sdf" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="grid_map" TARGET_NAME="grid_map_sdf" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Build All" />
       <item itemvalue="Application.grid_map_core" />
+      <item itemvalue="Application.grid_map_sdf" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -324,10 +350,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70341000" />
+    <option name="totallyTimeSpent" value="72208000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="0" width="1920" height="1044" extended-state="6" />
+    <frame x="3840" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
@@ -344,8 +370,8 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005208" side_tool="true" weight="0.32978722" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CMake" order="11" weight="0.3442623" />
-      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.49947917" weight="0.30020493" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.34378266" />
+      <window_info active="true" anchor="bottom" id="Messages" order="12" sideWeight="0.49947917" visible="true" weight="0.2998955" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -359,7 +385,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/jenkins-pipeline" />
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -370,9 +395,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grid_map/package.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map/package.xml" />
     <entry file="file://$PROJECT_DIR$/grid_map_filters/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/grid_map_cv/include/grid_map_cv/InpaintFilter.hpp" />
     <entry file="file://$PROJECT_DIR$/main.cpp" />
@@ -396,15 +419,13 @@
     <entry file="file://$PROJECT_DIR$/grid_map_octomap/include/grid_map_octomap/GridMapOctomapConverter.hpp" />
     <entry file="file://$PROJECT_DIR$/grid_map_octomap/grid_map_octomapConfig.cmake" />
     <entry file="file://$PROJECT_DIR$/grid_map_octomap/CMakeLists.txt" />
-    <entry file="file://$PROJECT_DIR$/grid_map_sdf/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/grid_map_sdf/grid-map-sdfConfig.cmake" />
-    <entry file="file://$PROJECT_DIR$/grid_map_sdf/include/grid_map_sdf/SignedDistanceField.hpp" />
     <entry file="file://$PROJECT_DIR$/grid_map_visualization/CMakeLists.txt" />
     <entry file="file://$PROJECT_DIR$/grid_map_visualization/include/grid_map_visualization/GridMapVisualization.hpp" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
-          <caret line="36" column="5" selection-start-line="36" selection-start-column="5" selection-end-line="36" selection-end-column="5" />
+          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -428,20 +449,10 @@
     <entry file="file://$PROJECT_DIR$/grid_map_core/test/SubmapIteratorTest.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/grid_map_core/cmake/grid_map_core-extras.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grid_map_core/include/grid_map_core/grid_map_core.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
-          <folding>
-            <element signature="e#145#182#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -461,13 +472,6 @@
     <entry file="file://$PROJECT_DIR$/grid_map_core/grid_map_coreConfigVersion.cmake">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grid_map/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -476,24 +480,66 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1095" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grid_map_core/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="83" column="15" lean-forward="true" selection-start-line="83" selection-start-column="15" selection-end-line="83" selection-end-column="15" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/grid_map_core/grid_map_coreConfigVersion.cmake">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/grid_map_core/grid_map_coreConfig.cmake">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="80" selection-start-line="10" selection-start-column="80" selection-end-line="10" selection-end-column="80" />
+        <state relative-caret-position="378">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_sdf/CHANGELOG.rst">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_core/package.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_core/CHANGELOG.rst">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_sdf/include/grid_map_sdf/SignedDistanceField.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_sdf/src/SignedDistanceField.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="38" column="8" selection-start-line="38" selection-start-column="2" selection-end-line="38" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_core/cmake/grid_map_core-extras.cmake">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_core/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1474">
+          <caret line="106" selection-start-line="106" selection-end-line="106" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_map_sdf/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
         </state>
       </provider>
     </entry>

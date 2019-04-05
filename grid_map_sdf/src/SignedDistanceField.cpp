@@ -6,11 +6,11 @@
  *   Institute: ETH Zurich, ANYbotics
  */
 
-#include <grid_map_sdf/SignedDistanceField.hpp>
-#include <grid_map_sdf/distance_transform/dt.h>
+#include "grid_map_sdf/SignedDistanceField.hpp"
+#include "grid_map_sdf/distance_transform/dt.h"
 
+#include <grid_map_core/eigen_plugins/DenseBasePlugin.hpp>
 #include <grid_map_core/GridMap.hpp>
-
 #include <limits>
 
 using namespace distance_transform;

@@ -34,14 +34,13 @@ target_link_libraries(${PROJECT_NAME}
     PCL
 )
 
-
 # add an alias
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 # set target compile options
 target_compile_options(${PROJECT_NAME}
   PRIVATE
-  $<$<CONFIG:Debug>:-Werror>
+  #$<$<CONFIG:Debug>:-Werror>
   )
 
 

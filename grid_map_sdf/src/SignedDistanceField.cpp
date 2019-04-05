@@ -9,7 +9,6 @@
 #include "grid_map_sdf/SignedDistanceField.hpp"
 #include "grid_map_sdf/distance_transform/dt.h"
 
-#include <grid_map_core/eigen_plugins/DenseBasePlugin.hpp>
 #include <grid_map_core/GridMap.hpp>
 #include <limits>
 
@@ -36,7 +35,7 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
   resolution_ = gridMap.getResolution();
   position_ = gridMap.getPosition();
   size_ = gridMap.getSize();
-  Matrix map = gridMap.get(layer); // Copy!
+  grid_map::Matrix map = gridMap.get(layer); // Copy!
 
   float minHeight = map.minCoeffOfFinites();
   if (!std::isfinite(minHeight)) minHeight = lowestHeight_;

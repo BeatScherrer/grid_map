@@ -4,14 +4,13 @@ cmake_minimum_required(VERSION 3.0.2)
 # Set project name
 project(grid_map_core VERSION 1.6.1)
 
-add_compile_options(-std=c++11)
-add_compile_options(-fPIC)
+add_compile_options(-std=c++11 -fPIC)
+
+# Define Eigen plugins
+#include(cmake/${PROJECT_NAME}-extras.cmake)
 
 # import Eigen3
 find_package(Eigen3 3.2.2 REQUIRED)
-
-## Define Eigen addons.
-include(cmake/${PROJECT_NAME}-extras.cmake)
 
 #########
 # Build #

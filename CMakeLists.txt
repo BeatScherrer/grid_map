@@ -19,3 +19,16 @@ endif()
 # Add subdirectories
 add_subdirectory(grid_map_core)
 add_subdirectory(grid_map_sdf)
+
+#
+# Packaging
+#
+set(CPACK_PACKAGE_NAME "grid_map")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "grid_map package - CPack installation")
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Beat Scherrer")
+set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+
+include(CPack)

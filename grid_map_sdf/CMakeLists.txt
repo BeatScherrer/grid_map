@@ -7,7 +7,7 @@ project(grid_map_sdf VERSION 1.6.1)
 add_compile_options(-std=c++11)
 
 # import PCL
-find_package(PCL REQUIRED CONFIG)
+find_package(PCL REQUIRED CONFIG COMPONENTS)
 
 #########
 # Build #
@@ -28,10 +28,18 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src
   )
 
+link_directories(
+    ${PCL_LIBRARY_DIRS}
+)
+
 target_link_libraries(${PROJECT_NAME}
-  public:
-    grid_map_core::grid_map_core
-    PCL
+  PUBLIC
+  grid_map_core::grid_map_core
+  ${PCL_LIBRARIES}
+  )
+
+add_definitions(
+    ${PCL_DEFINITIONS}
 )
 
 # add an alias
@@ -75,9 +83,9 @@ install(EXPORT "${PROJECT_NAME}Targets"
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file("${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
   VERSION
-  "${PROJECT_NAME}_VERSION"
+    "${PROJECT_NAME}_VERSION"
   COMPATIBILITY
-  SameMajorVersion
+    SameMajorVersion
   )
 
 # install config.cmake files
@@ -92,13 +100,3 @@ install(FILES
 #############
 # Packaging #
 #############
-
-set(CPACK_PACKAGE_NAME "grid_map_sdf")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "grid_map_sdf package - CPack installation")
-set(CPACK_GENERATOR "DEB")
-set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Beat Scherrer")
-set(CPACK_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
-
-include(CPack)

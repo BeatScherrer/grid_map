@@ -1,8 +1,8 @@
 # - Config file for the grid_map_core package
 # It defines the following variables
-#  grid_map_core_INCLUDE_DIRS - include directories for grid_map_core
-#  grid_map_core_LIBRARIES    - libraries to link against
-#  grid_map_core_EXECUTABLE   - the grid_map_core executable
+#  grid_map_sdf_INCLUDE_DIRS - include directories for grid_map_sdf
+#  grid_map_sdf_LIBRARIES    - libraries to link against
+#  grid_map_sdf_EXECUTABLE   - the grid_map_sdf executable
 include(CMakeFindDependencyMacro)
 find_dependency(grid_map_core CONFIG REQUIRED)
 find_dependency(PCL CONFIG REQUIRED COMPONENTS)

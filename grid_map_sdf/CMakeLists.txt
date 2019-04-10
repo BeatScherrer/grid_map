@@ -77,7 +77,8 @@ install(EXPORT "${PROJECT_NAME}Targets"
   NAMESPACE
   "${PROJECT_NAME}::"
   DESTINATION
-  lib/cmake/${PROJECT_NAME})
+  lib/cmake/${PROJECT_NAME}
+)
 
 # generate config.cmake
 include(CMakePackageConfigHelpers)

@@ -180,4 +180,13 @@ void SignedDistanceField::convertToPointCloud(pcl::PointCloud<pcl::PointXYZI>& p
   return;
 }
 
+std::ostream& operator << (std::ostream &out, const SignedDistanceField& in)
+{
+  for(const auto& i : in.data_)
+  {
+    out << i << "\n" << std::endl;
+  }
+  return out;
+}
+
 } /* namespace */

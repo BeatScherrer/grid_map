@@ -7,7 +7,6 @@ add_compile_options(-std=c++11)
 #########
 # Build #
 #########
-
 add_library(${PROJECT_NAME}
   src/LikelihoodField.cpp
 )
@@ -23,7 +22,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     grid_map_core::grid_map_core
-    grid_map_sdf::grid_map_sdf
+    grid_map_sdf
 )
 
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
@@ -61,4 +60,14 @@ install(EXPORT "${PROJECT_NAME}Targets"
 # install config.cmake files
 install(FILES
   ${PROJECT_NAME}Config.cmake DESTINATION lib/cmake/${PROJECT_NAME}
+)
+
+add_executable(test_exec
+  test/test_exec.cpp
+  )
+
+target_link_libraries(test_exec
+  grid_map_lf::grid_map_lf
+  grid_map_sdf::grid_map_sdf
+  grid_map_core::grid_map_core
 )

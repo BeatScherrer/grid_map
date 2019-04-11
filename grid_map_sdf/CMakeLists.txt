@@ -34,8 +34,8 @@ link_directories(
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-  grid_map_core::grid_map_core
-  ${PCL_LIBRARIES}
+    grid_map_core::grid_map_core
+    ${PCL_LIBRARIES}
   )
 
 add_definitions(
@@ -97,7 +97,3 @@ install(FILES
 ###########
 # Testing #
 ###########
-
-#############
-# Packaging #
-#############

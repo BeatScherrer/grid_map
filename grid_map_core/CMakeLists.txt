@@ -29,6 +29,7 @@ add_library(${PROJECT_NAME}
   src/iterators/LineIterator.cpp
   src/iterators/PolygonIterator.cpp
   src/iterators/SlidingWindowIterator.cpp
+  src/iterators/SpiralIterator.cpp
   src/iterators/SubmapIterator.cpp
 )
 
@@ -97,3 +98,28 @@ install(FILES
 ###########
 # Testing #
 ###########
+add_executable(test-grid-map-core
+  test/test_grid_map_core.cpp
+  test/EigenPluginsTest.cpp
+  test/EllipseIteratorTest.cpp
+  test/GridMapIteratorTest.cpp
+  test/GridMapMathTest.cpp
+  test/LineIteratorTest.cpp
+  test/PolygonIteratorTest.cpp
+  test/PolygonTest.cpp
+  test/SlidingWindowIteratorTest.cpp
+  test/SpiralIteratorTest.cpp
+  test/SubmapIteratorTest.cpp
+  )
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
+target_link_libraries(test-grid-map-core
+  PRIVATE
+    grid_map_core::grid_map_core
+
+    gtest
+    gtest_main
+  )
+
+add_test(NAME test-grid-map-core COMMAND test-grid-map-core)

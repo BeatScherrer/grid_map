@@ -16,11 +16,6 @@ if(EXISTS "${LOC_PATH}")
   message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-# Add subdirectories
-add_subdirectory(grid_map_core)
-add_subdirectory(grid_map_sdf)
-add_subdirectory(grid_map_lf)
-
 #
 # Packaging
 #
@@ -33,3 +28,16 @@ set(CPACK_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
 set(CPACK_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 
 include(CPack)
+
+#
+# Testing
+#
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+enable_testing()
+
+# Add subdirectories
+add_subdirectory(grid_map_core)
+add_subdirectory(grid_map_sdf)
+add_subdirectory(grid_map_lf)

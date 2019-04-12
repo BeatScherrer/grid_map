@@ -31,7 +31,9 @@ class SignedDistanceField
   SignedDistanceField();
 
   /// Default destructor.
-  virtual ~SignedDistanceField();
+  virtual ~SignedDistanceField() = default;
+
+  const Size& getSize() const;
 
   /** Calculates the signed distance field for a given occupancy grid.
    *
@@ -78,7 +80,7 @@ class SignedDistanceField
   friend std::ostream& operator << (std::ostream &out, const SignedDistanceField& in);
 
  private:
-  /** Retrieves the two dimensional signed distance field.
+  /** Retrieves the two dimensional planar signed distance field.
    *
    * @param data Data for which the distance field is calculated.
    * @return Matrix of the calculated signed distance field.

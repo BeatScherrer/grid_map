@@ -24,8 +24,13 @@ SignedDistanceField::SignedDistanceField()
 {
 }
 
-SignedDistanceField::~SignedDistanceField()
+// -----------------------------------------------------------------------------
+// Getters
+// -----------------------------------------------------------------------------
+
+const Size& SignedDistanceField::getSize() const
 {
+  return size_;
 }
 
 void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer,
@@ -76,30 +81,6 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
     }
     data_.push_back(sdfLayer);
   }
-}
-
-grid_map::Matrix SignedDistanceField::getPlanarSignedDistanceField(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& data) const
-{
-  image<uchar> *input = new image<uchar>(data.rows(), data.cols(), true);
-
-  for (int y = 0; y < input->height(); y++) {
-    for (int x = 0; x < input->width(); x++) {
-      imRef(input, x, y) = data(x, y);
-    }
-  }
-
-  // Compute dt.
-  image<float> *out = dt(input);
-
-  Matrix result(data.rows(), data.cols());
-
-  // Take square roots.
-  for (int y = 0; y < out->height(); y++) {
-    for (int x = 0; x < out->width(); x++) {
-      result(x, y) = sqrt(imRef(out, x, y));
-    }
-  }
-  return result;
 }
 
 double SignedDistanceField::getDistanceAt(const Position3& position) const
@@ -162,9 +143,9 @@ void SignedDistanceField::convertToPointCloud(pcl::PointCloud<pcl::PointXYZI>& p
 {
   double xCenter = size_.x() / 2.0;
   double yCenter = size_.y() / 2.0;
-  for (int z = 0; z < data_.size(); z++){
-    for (int y = 0; y < size_.y(); y++) {
-      for (int x = 0; x < size_.x(); x++) {
+  for (int z = 0; z < data_.size(); ++z){
+    for (int y = 0; y < size_.y(); ++y) {
+      for (int x = 0; x < size_.x(); ++x) {
         double xp = position_.x() + ((size_.x() - x) - xCenter) * resolution_;
         double yp = position_.y() + ((size_.y() - y) - yCenter) * resolution_;
         double zp = zIndexStartHeight_ + z * resolution_;
@@ -182,11 +163,41 @@ void SignedDistanceField::convertToPointCloud(pcl::PointCloud<pcl::PointXYZI>& p
 
 std::ostream& operator << (std::ostream &out, const SignedDistanceField& in)
 {
-  for(const auto& i : in.data_)
+  for (const auto& i : in.data_)
   {
     out << i << "\n" << std::endl;
   }
   return out;
+}
+
+// -----------------------------------------------------------------------------
+// Private
+// -----------------------------------------------------------------------------
+
+grid_map::Matrix SignedDistanceField::getPlanarSignedDistanceField(Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic>& data) const
+{
+  image<uchar>* input = new image<uchar>(data.rows(), data.cols(), true);
+
+  for (int y = 0; y < input->height(); ++y) {
+    for (int x = 0; x < input->width(); ++x) {
+      imRef(input, x, y) = data(x, y);
+    }
+  }
+
+  // Compute dt.
+  image<float> *out = dt(input);
+  delete input;
+
+  Matrix result(data.rows(), data.cols());
+
+  // Take square roots.
+  for (int y = 0; y < out->height(); ++y) {
+    for (int x = 0; x < out->width(); ++x) {
+      result(x, y) = sqrt(imRef(out, x, y));
+    }
+  }
+
+  return result;
 }
 
 } /* namespace */

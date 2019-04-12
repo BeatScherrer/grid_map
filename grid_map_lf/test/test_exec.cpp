@@ -8,23 +8,16 @@
 
 int main() {
 
-  grid_map::GridMap grid_map;
+  grid_map::GridMap map({"layer"});
+  map.setGeometry(grid_map::Length(1.0, 2.0), 0.1, grid_map::Position());
+  map["layer"].setConstant(1.0);
+  map.at("layer", grid_map::Index(0, 0)) = -1;
+
   grid_map::SignedDistanceField sdf;
-  grid_map::LikelihoodField lf;
 
-  grid_map.setGeometry(grid_map::Length(3, 3), 1.0);
-  grid_map::Matrix m;
-  m.resize(3, 3);
-  m.setZero();
-  m << 255, 255, 255,
-       255,   1, 255,
-       255, 255, 255;
-  grid_map.add("occupancy_grid", m);
+  sdf.calculateSignedDistanceField(map, "layer", 2.5);
 
-  sdf.calculateSignedDistanceField(grid_map, "occupancy_grid", 1.0);
-
-
-  std::cout << grid_map["occupancy_grid"] << std::endl;
+  std::cout << map["layer"] << std::endl;
 
   std::cout << sdf << std::endl;
 

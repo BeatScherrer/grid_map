@@ -62,12 +62,19 @@ install(FILES
   ${PROJECT_NAME}Config.cmake DESTINATION lib/cmake/${PROJECT_NAME}
 )
 
-add_executable(test_exec
-  test/test_exec.cpp
+add_executable(test-grid-map-lf
+  test/test_grid_map_lf.cpp
+  test/LikelihoodFieldTest.cpp
   )
 
-target_link_libraries(test_exec
-  grid_map_lf::grid_map_lf
-  grid_map_sdf::grid_map_sdf
-  grid_map_core::grid_map_core
+target_link_libraries(test-grid-map-lf
+  PRIVATE
+    grid_map_lf::grid_map_lf
+    grid_map_sdf::grid_map_sdf
+    grid_map_core::grid_map_core
+
+    gtest
+    gtest_main
 )
+
+add_test(test-grid-map-lf test-grid-map-lf)

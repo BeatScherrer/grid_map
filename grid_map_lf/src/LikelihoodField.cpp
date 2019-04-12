@@ -11,7 +11,7 @@
 
 namespace grid_map {
 
-void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap, const std::string layer, double sigma)
+void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap, const std::string layer, const double sigma)
 {
   // set probability distribution
   sigma_ = sigma;

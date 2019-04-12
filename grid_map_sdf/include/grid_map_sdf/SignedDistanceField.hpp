@@ -10,10 +10,6 @@
 
 #include <grid_map_core/GridMap.hpp>
 
-// PCL
-#include <pcl/point_types.h>
-#include <pcl/conversions.h>
-
 // STL
 #include <string>
 #include <vector>
@@ -41,34 +37,21 @@ class SignedDistanceField
    * @param layer Layer of the grid map for which a distance field is to be constructed.
    * @param heightClearance ?
    */
-  void calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer, const double heightClearance);
+  void calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer, const int occupiedValue = 1);
 
   /** Retrieves the distance to the nearest obstacle at the given @param position.
    *
    * @param position Position for which the distance is returned.
    * @return Distance to nearest obstacle at position.
    */
-  double getDistanceAt(const Position3& position) const;
-
-  /** Retrieves the three dimensional distance gradient at a given position.
-   *
-   * @param position Position of which the gradient is calculated.
-   * @return Vector with the three dimensional gradient at the given position.
-   */
-  Vector3 getDistanceGradientAt(const Position3& position) const;
+  double getDistanceAt(const Vector& position) const;
 
   /** Interpolates the distance of a given position from the adjacent cell entries.
    *
    * @param position Position for which the distance is returned.
    * @return Interpolated distance to the nearest obstacle.
    */
-  double getInterpolatedDistanceAt(const Position3& position) const;
-
-  /** Converts the distance field to a point cloud.
-   *
-   * @param[out] points Point cloud of the distance field.
-   */
-  void convertToPointCloud(pcl::PointCloud<pcl::PointXYZI>& points) const;
+  double getInterpolatedDistanceAt(const Vector& position) const;
 
   /** Output stream operator.
    *  Proxies to the matrix.
@@ -97,16 +80,11 @@ class SignedDistanceField
   Position position_;
 
   /// Vector of Matrices holding three dimensional distance data.
-  std::vector<Matrix> data_;
-
-  /// Z start height index.
-  float zIndexStartHeight_;
+  Matrix data_;
 
   /// Maximum distance in the distance field.
   float maxDistance_;
 
-  /// Lowest height.
-  const float lowestHeight_;
 };
 
 } /* namespace */

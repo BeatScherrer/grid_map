@@ -10,15 +10,13 @@ int main() {
 
   grid_map::GridMap map({"layer"});
   map.setGeometry(grid_map::Length(1.0, 2.0), 0.1, grid_map::Position());
-  map["layer"].setConstant(1.0);
-  map.at("layer", grid_map::Index(0, 0)) = -1;
+  map["layer"].setConstant(0);
+  map.at("layer", grid_map::Index(0, 0)) = 1;
 
   grid_map::SignedDistanceField sdf;
 
-  sdf.calculateSignedDistanceField(map, "layer", 2.5);
-
-  std::cout << map["layer"] << std::endl;
-
+  sdf.calculateSignedDistanceField(map, "layer");
+  
   std::cout << sdf << std::endl;
 
   return 0;

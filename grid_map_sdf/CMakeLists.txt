@@ -97,17 +97,19 @@ install(FILES
 ###########
 # Testing #
 ###########
-add_executable(test-grid-map-sdf
-  test/test_grid_map_sdf.cpp
-  test/SignedDistanceFieldTest.cpp
-)
 
-target_link_libraries(test-grid-map-sdf
-  PRIVATE
-    grid_map_sdf::grid_map_sdf
-
-    gtest
-    gtest_main
-)
-
-add_test(NAME test-grid-map-sdf COMMAND test-grid-map-sdf)
+## These test are written for the original ANYbotics library.
+#add_executable(test-grid-map-sdf
+#  test/test_grid_map_sdf.cpp
+#  test/SignedDistanceFieldTest.cpp
+#)
+#
+#target_link_libraries(test-grid-map-sdf
+#  PRIVATE
+#    grid_map_sdf::grid_map_sdf
+#
+#    gtest
+#    gtest_main
+#)
+#
+#add_test(NAME test-grid-map-sdf COMMAND test-grid-map-sdf)

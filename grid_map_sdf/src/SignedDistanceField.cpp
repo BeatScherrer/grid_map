@@ -18,9 +18,7 @@ namespace grid_map {
 
 SignedDistanceField::SignedDistanceField()
     : maxDistance_(std::numeric_limits<float>::max()),
-      zIndexStartHeight_(0.0),
-      resolution_(0.0),
-      lowestHeight_(-1e5) // We need some precision.
+      resolution_(0.0)
 {
 }
 
@@ -33,140 +31,46 @@ const Size& SignedDistanceField::getSize() const
   return size_;
 }
 
-void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer,
-                                                       const double heightClearance)
+void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer, const int occupiedValue)
 {
-  data_.clear();
+  data_.setZero();
   resolution_ = gridMap.getResolution();
   position_ = gridMap.getPosition();
   size_ = gridMap.getSize();
-  grid_map::Matrix map = gridMap.get(layer); // Copy!
 
-  float minHeight = map.minCoeffOfFinites();
-  if (!std::isfinite(minHeight)) minHeight = lowestHeight_;
-  float maxHeight = map.maxCoeffOfFinites();
-  if (!std::isfinite(maxHeight)) maxHeight = lowestHeight_;
+  Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> occupancyGrid;
+  occupancyGrid.resize(size_(0), size_(1));
 
-  const float valueForEmptyCells = lowestHeight_; // maxHeight, minHeight (TODO Make this an option).
-  for (size_t i = 0; i < map.size(); ++i) {
-    if (std::isnan(map(i))) map(i) = valueForEmptyCells;
-  }
-
-  // Height range of the signed distance field is higher than the max height.
-  maxHeight += heightClearance;
-
-  Matrix sdfElevationAbove = Matrix::Ones(map.rows(), map.cols()) * maxDistance_;
-  Matrix sdfLayer = Matrix::Zero(map.rows(), map.cols());
-  std::vector<Matrix> sdf;
-  zIndexStartHeight_ = minHeight;
-
-  // Calculate signed distance field from bottom.
-  for (float h = minHeight; h < maxHeight; h += resolution_) {
-    Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> obstacleFreeField = map.array() < h;
-    Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> obstacleField = obstacleFreeField.array() < 1;
-    Matrix sdfObstacle = getPlanarSignedDistanceField(obstacleField);
-    Matrix sdfObstacleFree = getPlanarSignedDistanceField(obstacleFreeField);
-    Matrix sdf2d;
-    // If 2d sdfObstacleFree calculation failed, neglect this SDF
-    // to avoid extreme small distances (-INF).
-    if ((sdfObstacleFree.array() >= INF).any()) sdf2d = sdfObstacle;
-    else sdf2d = sdfObstacle - sdfObstacleFree;
-    sdf2d *= resolution_;
-    for (size_t i = 0; i < sdfElevationAbove.size(); ++i) {
-      if(sdfElevationAbove(i) == maxDistance_ && map(i) <= h) sdfElevationAbove(i) = h - map(i);
-      else if(sdfElevationAbove(i) != maxDistance_ && map(i) <= h) sdfElevationAbove(i) = sdfLayer(i) + resolution_;
-      if (sdf2d(i) == 0) sdfLayer(i) = h - map(i);
-      else if (sdf2d(i) < 0) sdfLayer(i) = -std::min(fabs(sdf2d(i)), fabs(map(i) - h));
-      else sdfLayer(i) = std::min(sdf2d(i), sdfElevationAbove(i));
+  // set cells with values = occupied values to 1 others to 0
+  for (int i = 0; i < size_(0); ++i)
+  {
+    for(int j = 0; j < size_(1); ++j)
+    {
+      occupancyGrid(i, j) = gridMap["layer"](i, j) == occupiedValue;
     }
-    data_.push_back(sdfLayer);
   }
+
+  // Transform the occupancy grid
+  data_ = getPlanarSignedDistanceField(occupancyGrid);
 }
 
-double SignedDistanceField::getDistanceAt(const Position3& position) const
+double SignedDistanceField::getDistanceAt(const Vector& position) const
 {
   double xCenter = size_.x() / 2.0;
   double yCenter = size_.y() / 2.0;
   int i = std::round(xCenter - (position.x() - position_.x()) / resolution_);
   int j = std::round(yCenter - (position.y() - position_.y()) / resolution_);
-  int k = std::round((position.z() - zIndexStartHeight_) / resolution_);
   i = std::max(i, 0);
   i = std::min(i, size_.x() - 1);
   j = std::max(j, 0);
   j = std::min(j, size_.y() - 1);
-  k = std::max(k, 0);
-  k = std::min(k, (int)data_.size() - 1);
-  return data_[k](i, j);
-}
 
-double SignedDistanceField::getInterpolatedDistanceAt(const Position3& position) const
-{
-  double xCenter = size_.x() / 2.0;
-  double yCenter = size_.y() / 2.0;
-  int i = std::round(xCenter - (position.x() - position_.x()) / resolution_);
-  int j = std::round(yCenter - (position.y() - position_.y()) / resolution_);
-  int k = std::round((position.z() - zIndexStartHeight_) / resolution_);
-  i = std::max(i, 0);
-  i = std::min(i, size_.x() - 1);
-  j = std::max(j, 0);
-  j = std::min(j, size_.y() - 1);
-  k = std::max(k, 0);
-  k = std::min(k, (int)data_.size() - 1);
-  Vector3 gradient = getDistanceGradientAt(position);
-  double xp = position_.x() + ((size_.x() - i) - xCenter) * resolution_;
-  double yp = position_.y() + ((size_.y() - j) - yCenter) * resolution_;
-  double zp = zIndexStartHeight_ + k * resolution_;
-  Vector3 error = position - Vector3(xp, yp, zp);
-  return data_[k](i, j) + gradient.dot(error);
-}
-
-Vector3 SignedDistanceField::getDistanceGradientAt(const Position3& position) const
-{
-  double xCenter = size_.x() / 2.0;
-  double yCenter = size_.y() / 2.0;
-  int i = std::round(xCenter - (position.x() - position_.x()) / resolution_);
-  int j = std::round(yCenter - (position.y() - position_.y()) / resolution_);
-  int k = std::round((position.z() - zIndexStartHeight_) / resolution_);
-  i = std::max(i, 1);
-  i = std::min(i, size_.x() - 2);
-  j = std::max(j, 1);
-  j = std::min(j, size_.y() - 2);
-  k = std::max(k, 1);
-  k = std::min(k, (int)data_.size() - 2);
-  double dx = (data_[k](i - 1, j) - data_[k](i + 1, j)) / (2 * resolution_);
-  double dy = (data_[k](i, j - 1) - data_[k](i, j + 1)) / (2 * resolution_);
-  double dz = (data_[k + 1](i, j) - data_[k - 1](i, j)) / (2 * resolution_);
-  return Vector3(dx, dy, dz);
-}
-
-void SignedDistanceField::convertToPointCloud(pcl::PointCloud<pcl::PointXYZI>& points) const
-{
-  double xCenter = size_.x() / 2.0;
-  double yCenter = size_.y() / 2.0;
-  for (int z = 0; z < data_.size(); ++z){
-    for (int y = 0; y < size_.y(); ++y) {
-      for (int x = 0; x < size_.x(); ++x) {
-        double xp = position_.x() + ((size_.x() - x) - xCenter) * resolution_;
-        double yp = position_.y() + ((size_.y() - y) - yCenter) * resolution_;
-        double zp = zIndexStartHeight_ + z * resolution_;
-        pcl::PointXYZI p;
-        p.x = xp;
-        p.y = yp;
-        p.z = zp;
-        p.intensity = data_[z](x, y);
-        points.push_back(p);
-      }
-    }
-  }
-  return;
+  return data_(i, j);
 }
 
 std::ostream& operator << (std::ostream &out, const SignedDistanceField& in)
 {
-  for (const auto& i : in.data_)
-  {
-    out << i << "\n" << std::endl;
-  }
+  out << in.data_ << std::endl;
   return out;
 }
 

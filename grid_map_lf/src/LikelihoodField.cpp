@@ -11,7 +11,14 @@
 
 namespace grid_map {
 
-void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap, const std::string layer, const double sigma)
+const Matrix& LikelihoodField::getData() const
+{
+  return data_;
+}
+
+void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
+                                               const std::string layer,
+                                               const double sigma)
 {
   // set probability distribution
   sigma_ = sigma;
@@ -29,16 +36,16 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap, const std
 
   const auto& data = gridMap[layer];
 
-  for(std::size_t i = 0; i < size_(0); ++i)
+  for (std::size_t i = 0; i < size_(0); ++i)
   {
-    for(std::size_t j = 0; j < size_(1); ++j)
+    for (std::size_t j = 0; j < size_(1); ++j)
     {
       data_(i, j) = pdf(normalDistribution, data(i, j));
     }
   }
 }
 
-double LikelihoodField::getLikelihoodAt(const Position3& position) const
+double LikelihoodField::getLikelihoodAt(const Vector& position) const
 {
   /* If the position is not in the map there is no knowledge of the probability
    * of measuring an endpoint. Therefore the probability is set to 0.5. */
@@ -58,6 +65,11 @@ double LikelihoodField::getLikelihoodAt(const Position3& position) const
   return data_(i, j);
 }
 
+std::ostream& operator<< (std::ostream& out, const LikelihoodField& in)
+{
+  out << in.data_ << std::endl;
+  return out;
+}
 
 } // namespace grid_map
 

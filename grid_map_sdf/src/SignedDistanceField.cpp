@@ -31,6 +31,11 @@ const Size& SignedDistanceField::getSize() const
   return size_;
 }
 
+const Matrix& SignedDistanceField::getData() const
+{
+  return data_;
+}
+
 void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, const std::string& layer, const int occupiedValue)
 {
   data_.setZero();

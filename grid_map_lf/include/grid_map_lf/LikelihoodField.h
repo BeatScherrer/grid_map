@@ -17,8 +17,11 @@ public:
     LikelihoodField() = default;
     ~LikelihoodField() = default;
 
-    void calculateLikelihoodField(const GridMap& gridMap, const std::string layer, const double sigma = 0);
-    double getLikelihoodAt(const Position3& position) const;
+  const Matrix& getData() const;
+
+  void calculateLikelihoodField(const GridMap& gridMap, const std::string layer, const double sigma = 0);
+    double getLikelihoodAt(const Vector& position) const;
+    friend std::ostream& operator << (std::ostream &out, const LikelihoodField& in);
 
 private:
   double sigma_;

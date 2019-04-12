@@ -31,6 +31,8 @@ class SignedDistanceField
 
   const Size& getSize() const;
 
+  const Matrix& getData() const;
+
   /** Calculates the signed distance field for a given occupancy grid.
    *
    * @param gridMap Grid map for which a distance field is to be constructed.

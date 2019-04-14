@@ -23,6 +23,7 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
   // set probability distribution
   sigma_ = sigma;
   boost::math::normal_distribution<double> normalDistribution(0, sigma_);
+  double normalization = pdf(normalDistribution, 0);
 
   // set properties
   resolution_ = gridMap.getResolution();
@@ -40,7 +41,7 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
   {
     for (std::size_t j = 0; j < size_(1); ++j)
     {
-      data_(i, j) = pdf(normalDistribution, data(i, j));
+      data_(i, j) = pdf(normalDistribution, data(i, j))/normalization;
     }
   }
 }

@@ -20,8 +20,8 @@ public:
   const Matrix& getData() const;
 
   void calculateLikelihoodField(const GridMap& gridMap, const std::string layer, const double sigma = 0);
-    double getLikelihoodAt(const Vector& position) const;
-    friend std::ostream& operator << (std::ostream &out, const LikelihoodField& in);
+  double getLikelihoodAt(const Vector& position) const;
+  friend std::ostream& operator << (std::ostream &out, const LikelihoodField& in);
 
 private:
   double sigma_;

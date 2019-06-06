@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.0.2)
 
 project(grid_map_lf VERSION 1.6.1)
 
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++11 -fPIC)
 
 #########
 # Build #
 #########
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} STATIC
   src/LikelihoodField.cpp
 )
 
@@ -22,7 +22,7 @@ target_include_directories(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     grid_map_core::grid_map_core
-    grid_map_sdf
+    grid_map_sdf::grid_map_sdf
 )
 
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

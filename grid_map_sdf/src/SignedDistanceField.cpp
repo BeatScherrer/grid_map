@@ -51,7 +51,7 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
   {
     for(int j = 0; j < size_(1); ++j)
     {
-      occupancyGrid(i, j) = gridMap["layer"](i, j) == occupiedValue;
+      occupancyGrid(i, j) = gridMap[layer](i, j) == occupiedValue;
     }
   }
 

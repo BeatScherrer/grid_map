@@ -17,11 +17,11 @@ using namespace grid_map;
 
 TEST(SignedDistanceField, EmptyMap)
 {
-  GridMap map({"layer"});
+  GridMap map({"test"});
   map.setGeometry(Length(1.0, 2.0), 0.1, Position(0.0, 0.0));
 
   SignedDistanceField sdf;
-  sdf.calculateSignedDistanceField(map, "layer", 1.0);
+  sdf.calculateSignedDistanceField(map, "test", 1.0);
   Position3 position(0.0, 0.0, 0.0);
 
   EXPECT_NO_THROW(sdf.getDistanceAt(position));
@@ -31,13 +31,13 @@ TEST(SignedDistanceField, EmptyMap)
 
 TEST(SignedDistanceField, GetDistanceFlat)
 {
-  GridMap map({"layer"});
+  GridMap map({"test"});
   map.setGeometry(Length(1.0, 2.0), 0.1, Position(0.1, 0.2));
-  map["layer"].setConstant(1.0);
-  map.at("layer", Index(0,0)) = -1.0;
+  map["test"].setConstant(1.0);
+  map.at("test", Index(0,0)) = -1.0;
 
   SignedDistanceField sdf;
-  sdf.calculateSignedDistanceField(map, "layer", 2.5);
+  sdf.calculateSignedDistanceField(map, "test", 2.5);
   Position pos;
   map.getPosition(Index(9, 9), pos);
   EXPECT_NEAR(sdf.getDistanceAt(Vector3(pos.x(), pos.y(), 0.0)), -1.0, 0.0001);
@@ -72,28 +72,28 @@ TEST(SignedDistanceField, GetDistanceFlat)
 
 TEST(SignedDistanceField, GetDistance)
 {
-  GridMap map({"layer"});
+  GridMap map({"test"});
   map.setGeometry(Length(1.0, 2.0), 0.1, Position(0.15, 0.25));
-  map["layer"].setConstant(1.0);
+  map["test"].setConstant(1.0);
 
-  map.at("layer", Index(3,4)) = 2.0;
-  map.at("layer", Index(3,5)) = 2.0;
-  map.at("layer", Index(3,6)) = 2.0;
-  map.at("layer", Index(4,4)) = 2.0;
-  map.at("layer", Index(4,5)) = 2.0;
-  map.at("layer", Index(4,6)) = 2.0;
-  map.at("layer", Index(5,4)) = 2.0;
-  map.at("layer", Index(5,5)) = 2.0;
-  map.at("layer", Index(5,6)) = 2.0;
-  map.at("layer", Index(6,4)) = 2.0;
-  map.at("layer", Index(6,5)) = 2.0;
-  map.at("layer", Index(6,6)) = 2.0;
-  map.at("layer", Index(7,4)) = 2.0;
-  map.at("layer", Index(7,5)) = 2.0;
-  map.at("layer", Index(7,6)) = 2.0;
+  map.at("test", Index(3,4)) = 2.0;
+  map.at("test", Index(3,5)) = 2.0;
+  map.at("test", Index(3,6)) = 2.0;
+  map.at("test", Index(4,4)) = 2.0;
+  map.at("test", Index(4,5)) = 2.0;
+  map.at("test", Index(4,6)) = 2.0;
+  map.at("test", Index(5,4)) = 2.0;
+  map.at("test", Index(5,5)) = 2.0;
+  map.at("test", Index(5,6)) = 2.0;
+  map.at("test", Index(6,4)) = 2.0;
+  map.at("test", Index(6,5)) = 2.0;
+  map.at("test", Index(6,6)) = 2.0;
+  map.at("test", Index(7,4)) = 2.0;
+  map.at("test", Index(7,5)) = 2.0;
+  map.at("test", Index(7,6)) = 2.0;
 
   SignedDistanceField sdf;
-  sdf.calculateSignedDistanceField(map, "layer", 1.5);
+  sdf.calculateSignedDistanceField(map, "test", 1.5);
   Position pos;
 
   map.getPosition(Index(5, 5), pos);
@@ -141,28 +141,28 @@ TEST(SignedDistanceField, GetDistance)
 
 TEST(SignedDistanceField, GetDistanceGradient)
 {
-  GridMap map({"layer"});
+  GridMap map({"test"});
   map.setGeometry(Length(1.0, 2.0), 0.1, Position(0.15, 0.25));
-  map["layer"].setConstant(1.0);
+  map["test"].setConstant(1.0);
 
-  map.at("layer", Index(3,4)) = 2.0;
-  map.at("layer", Index(3,5)) = 2.0;
-  map.at("layer", Index(3,6)) = 2.0;
-  map.at("layer", Index(4,4)) = 2.0;
-  map.at("layer", Index(4,5)) = 2.0;
-  map.at("layer", Index(4,6)) = 2.0;
-  map.at("layer", Index(5,4)) = 2.0;
-  map.at("layer", Index(5,5)) = 2.0;
-  map.at("layer", Index(5,6)) = 2.0;
-  map.at("layer", Index(6,4)) = 2.0;
-  map.at("layer", Index(6,5)) = 2.0;
-  map.at("layer", Index(6,6)) = 2.0;
-  map.at("layer", Index(7,4)) = 2.0;
-  map.at("layer", Index(7,5)) = 2.0;
-  map.at("layer", Index(7,6)) = 2.0;
+  map.at("test", Index(3,4)) = 2.0;
+  map.at("test", Index(3,5)) = 2.0;
+  map.at("test", Index(3,6)) = 2.0;
+  map.at("test", Index(4,4)) = 2.0;
+  map.at("test", Index(4,5)) = 2.0;
+  map.at("test", Index(4,6)) = 2.0;
+  map.at("test", Index(5,4)) = 2.0;
+  map.at("test", Index(5,5)) = 2.0;
+  map.at("test", Index(5,6)) = 2.0;
+  map.at("test", Index(6,4)) = 2.0;
+  map.at("test", Index(6,5)) = 2.0;
+  map.at("test", Index(6,6)) = 2.0;
+  map.at("test", Index(7,4)) = 2.0;
+  map.at("test", Index(7,5)) = 2.0;
+  map.at("test", Index(7,6)) = 2.0;
 
   SignedDistanceField sdf;
-  sdf.calculateSignedDistanceField(map, "layer", 1.5);
+  sdf.calculateSignedDistanceField(map, "test", 1.5);
   Position pos;
   Vector3 gradient;
 
@@ -209,38 +209,38 @@ TEST(SignedDistanceField, GetDistanceGradient)
 
 TEST(SignedDistanceField, GetInterpolatedDistance)
 {
-  GridMap map({"layer"});
+  GridMap map({"test"});
   map.setGeometry(Length(1.0, 2.0), 0.1, Position(0.15, 0.25));
-  map["layer"].setConstant(1.0);
+  map["test"].setConstant(1.0);
 
-  map.at("layer", Index(3,3)) = 2.0;
-  map.at("layer", Index(3,4)) = 2.0;
-  map.at("layer", Index(3,5)) = 2.0;
-  map.at("layer", Index(3,6)) = 2.0;
-  map.at("layer", Index(3,7)) = 2.0;
-  map.at("layer", Index(4,3)) = 2.0;
-  map.at("layer", Index(4,4)) = 2.0;
-  map.at("layer", Index(4,5)) = 2.0;
-  map.at("layer", Index(4,6)) = 2.0;
-  map.at("layer", Index(4,7)) = 2.0;
-  map.at("layer", Index(5,3)) = 2.0;
-  map.at("layer", Index(5,4)) = 2.0;
-  map.at("layer", Index(5,5)) = 2.0;
-  map.at("layer", Index(5,6)) = 2.0;
-  map.at("layer", Index(5,7)) = 2.0;
-  map.at("layer", Index(6,3)) = 2.0;
-  map.at("layer", Index(6,4)) = 2.0;
-  map.at("layer", Index(6,5)) = 2.0;
-  map.at("layer", Index(6,6)) = 2.0;
-  map.at("layer", Index(6,7)) = 2.0;
-  map.at("layer", Index(7,3)) = 2.0;
-  map.at("layer", Index(7,4)) = 2.0;
-  map.at("layer", Index(7,5)) = 2.0;
-  map.at("layer", Index(7,6)) = 2.0;
-  map.at("layer", Index(7,7)) = 2.0;
+  map.at("test", Index(3,3)) = 2.0;
+  map.at("test", Index(3,4)) = 2.0;
+  map.at("test", Index(3,5)) = 2.0;
+  map.at("test", Index(3,6)) = 2.0;
+  map.at("test", Index(3,7)) = 2.0;
+  map.at("test", Index(4,3)) = 2.0;
+  map.at("test", Index(4,4)) = 2.0;
+  map.at("test", Index(4,5)) = 2.0;
+  map.at("test", Index(4,6)) = 2.0;
+  map.at("test", Index(4,7)) = 2.0;
+  map.at("test", Index(5,3)) = 2.0;
+  map.at("test", Index(5,4)) = 2.0;
+  map.at("test", Index(5,5)) = 2.0;
+  map.at("test", Index(5,6)) = 2.0;
+  map.at("test", Index(5,7)) = 2.0;
+  map.at("test", Index(6,3)) = 2.0;
+  map.at("test", Index(6,4)) = 2.0;
+  map.at("test", Index(6,5)) = 2.0;
+  map.at("test", Index(6,6)) = 2.0;
+  map.at("test", Index(6,7)) = 2.0;
+  map.at("test", Index(7,3)) = 2.0;
+  map.at("test", Index(7,4)) = 2.0;
+  map.at("test", Index(7,5)) = 2.0;
+  map.at("test", Index(7,6)) = 2.0;
+  map.at("test", Index(7,7)) = 2.0;
 
   SignedDistanceField sdf;
-  sdf.calculateSignedDistanceField(map, "layer", 1.5);
+  sdf.calculateSignedDistanceField(map, "test", 1.5);
   Position pos;
 
   map.getPosition(Index(5, 5), pos);

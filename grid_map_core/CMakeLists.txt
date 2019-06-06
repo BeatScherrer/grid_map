@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.0.2)
 # Set project name
 project(grid_map_core VERSION 1.6.1)
 
-add_compile_options(-std=c++11 -fPIC)
+add_compile_options(-std=c++11)
 
 # Define Eigen plugins
 #include(cmake/${PROJECT_NAME}-extras.cmake)

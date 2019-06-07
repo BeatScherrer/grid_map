@@ -104,31 +104,6 @@ install(FILES
   "${PROJECT_NAME}Config.cmake"
   DESTINATION "lib/cmake/${PROJECT_NAME}")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 include(CPack)
 
 #

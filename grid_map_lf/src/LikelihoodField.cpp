@@ -11,6 +11,15 @@
 
 namespace grid_map {
 
+void LikelihoodField::setData(const grid_map::GridMap& grid_map, const std::string layer)
+{
+  data_ = grid_map[layer];
+  size_ = grid_map.getSize();
+  length_ = grid_map.getLength();
+  position_ = grid_map.getPosition();
+  resolution_ = grid_map.getResolution();
+}
+
 const Matrix& LikelihoodField::getData() const
 {
   return data_;
@@ -20,9 +29,12 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
                                                const std::string layer,
                                                const double sigma)
 {
-  // set probability distribution
-  sigma_ = sigma;
-  boost::math::normal_distribution<double> normalDistribution(0, sigma_);
+  if(sigma == 0)
+  {
+    throw std::domain_error("Standard deviation of 0 is not allowed");
+  }
+
+  boost::math::normal_distribution<double> normalDistribution(0, sigma);
   double normalization = pdf(normalDistribution, 0);
 
   // set properties

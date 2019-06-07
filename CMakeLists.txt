@@ -1,12 +1,14 @@
 # Set cmake version
 cmake_minimum_required(VERSION 3.0.2)
 
+
+# Add subdirectories
+add_subdirectory(grid_map_core)
+add_subdirectory(grid_map_sdf)
+add_subdirectory(grid_map_lf)
+
 # Set project name
 project(grid_map VERSION 1.0.0)
-
-# Must use GNUInstallDirs to install libraries into correct
-# locations on all platforms.
-include(GNUInstallDirs)
 
 add_compile_options(-std=c++11 -fPIC)
 
@@ -113,8 +115,3 @@ find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 enable_testing()
-
-# Add subdirectories
-add_subdirectory(grid_map_core)
-add_subdirectory(grid_map_sdf)
-add_subdirectory(grid_map_lf)

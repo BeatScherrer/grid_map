@@ -8,6 +8,7 @@
 #include <grid_map_core/GridMapMath.hpp>
 
 #include <boost/math/distributions/normal.hpp>
+#include <cmath>
 
 namespace grid_map {
 
@@ -49,24 +50,27 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
 
   const auto& data = gridMap[layer];
 
+  std::cout << data << std::endl;
+
   for (std::size_t i = 0; i < size_(0); ++i)
   {
     for (std::size_t j = 0; j < size_(1); ++j)
     {
-      data_(i, j) = pdf(normalDistribution, data(i, j))/normalization;
+      // if unknown, set likelihood to 0.5
+      if(isnan(data(i, j)))
+      {
+        data_(i, j) = 0.5;
+      }
+      else
+      {
+        data_(i, j) = pdf(normalDistribution, data(i, j))/normalization;
+      }
     }
   }
 }
 
 double LikelihoodField::getLikelihoodAt(const Vector& position) const
 {
-  /* If the position is not in the map there is no knowledge of the probability
-   * of measuring an endpoint. Therefore the probability is set to 0.5. */
-//  if(!checkIfPositionWithinMap(position, length_, position_))
-//  {
-//    return 0.5;
-//  }
-
   double xCenter = size_.x() / 2.0;
   double yCenter = size_.y() / 2.0;
   int i = std::round(xCenter - (position.x() - position_.x()) / resolution_);
@@ -75,6 +79,7 @@ double LikelihoodField::getLikelihoodAt(const Vector& position) const
   i = std::min(i, size_.x() - 1);
   j = std::max(j, 0);
   j = std::min(j, size_.y() - 1);
+
   return data_(i, j);
 }
 

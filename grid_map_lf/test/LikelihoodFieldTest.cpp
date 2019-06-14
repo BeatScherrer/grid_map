@@ -12,7 +12,7 @@
 #include <boost/math/distributions/normal.hpp>
 
 #include <iostream>
-
+#include <cmath>
 
 using namespace grid_map;
 using namespace std;
@@ -126,4 +126,18 @@ TEST(LikelihoodField, getLikelihoodAt)
           pdf(normalDistribution, sdf.getDistanceAt(grid_map::Position(2, 1))) / normalization, 1e5);
   EXPECT_NEAR(lf.getLikelihoodAt(grid_map::Position(2, 2)),
           pdf(normalDistribution, sdf.getDistanceAt(grid_map::Position(2, 2))) / normalization, 1e5);
+}
+
+TEST(LikelihoodField, unknown_region)
+{
+  GridMap map({"layer"});
+  map.setGeometry(Length(1.0, 1.0), 1.0, Position());
+  map["layer"].setConstant(NAN);
+
+  grid_map::LikelihoodField lf;
+  lf.calculateLikelihoodField(map, "layer", 1.0);
+
+  std::cout << lf.getData()(0, 0) << std::endl;
+
+  EXPECT_EQ(lf.getData()(0, 0), 0.5);
 }

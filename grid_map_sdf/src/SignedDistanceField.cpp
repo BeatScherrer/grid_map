@@ -11,6 +11,7 @@
 
 #include <grid_map_core/GridMap.hpp>
 #include <limits>
+#include <cmath>
 
 using namespace distance_transform;
 
@@ -46,17 +47,34 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
   Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> occupancyGrid;
   occupancyGrid.resize(size_(0), size_(1));
 
+  // store unknown indices
+  std::vector<grid_map::Index> nan_indices;
+
   // set cells with values = occupied values to 1 others to 0
   for (int i = 0; i < size_(0); ++i)
   {
     for(int j = 0; j < size_(1); ++j)
     {
-      occupancyGrid(i, j) = gridMap[layer](i, j) == occupiedValue;
+      if(isnan(gridMap[layer](i, j)))
+      {
+        std::cout << "is NaN" << std::endl;
+        nan_indices.emplace_back(i, j);
+      }
+      else
+      {
+        occupancyGrid(i, j) = gridMap[layer](i, j) == occupiedValue;
+      }
     }
   }
 
   // Transform the occupancy grid
   data_ = getPlanarSignedDistanceField(occupancyGrid);
+
+  // propagate nans (unknown space)
+  for(const auto& i : nan_indices)
+  {
+    data_(i[0], i[1]) = NAN;
+  }
 }
 
 double SignedDistanceField::getDistanceAt(const Vector& position) const

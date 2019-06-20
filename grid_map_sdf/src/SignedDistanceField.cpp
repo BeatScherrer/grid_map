@@ -57,7 +57,6 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
     {
       if(isnan(gridMap[layer](i, j)))
       {
-        std::cout << "is NaN" << std::endl;
         nan_indices.emplace_back(i, j);
       }
       else

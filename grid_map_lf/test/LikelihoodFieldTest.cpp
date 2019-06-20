@@ -137,7 +137,5 @@ TEST(LikelihoodField, unknown_region)
   grid_map::LikelihoodField lf;
   lf.calculateLikelihoodField(map, "layer", 1.0);
 
-  std::cout << lf.getData()(0, 0) << std::endl;
-
   EXPECT_EQ(lf.getData()(0, 0), 0.5);
 }

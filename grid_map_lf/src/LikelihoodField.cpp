@@ -49,13 +49,13 @@ void LikelihoodField::calculateLikelihoodField(const GridMap& gridMap,
   data_.setZero();
 
   const auto& data = gridMap[layer];
-  
+
   for (std::size_t i = 0; i < size_(0); ++i)
   {
     for (std::size_t j = 0; j < size_(1); ++j)
     {
       // if unknown, set likelihood to 0.5
-      if(isnan(data(i, j)))
+      if(std::isnan(data(i, j)))
       {
         data_(i, j) = 0.5;
       }

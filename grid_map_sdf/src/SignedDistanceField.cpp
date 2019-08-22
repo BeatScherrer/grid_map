@@ -55,7 +55,7 @@ void SignedDistanceField::calculateSignedDistanceField(const GridMap& gridMap, c
   {
     for(int j = 0; j < size_(1); ++j)
     {
-      if(isnan(gridMap[layer](i, j)))
+      if(std::isnan(gridMap[layer](i, j)))
       {
         nan_indices.emplace_back(i, j);
       }

@@ -14,6 +14,9 @@ project(grid_map VERSION 1.0.0)
 
 add_compile_options(-std=c++11 -fPIC)
 
+# import Eigen3
+find_package(Eigen3 3.2.2 REQUIRED)
+
 # Require out-of-source builds
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
 if(EXISTS "${LOC_PATH}")

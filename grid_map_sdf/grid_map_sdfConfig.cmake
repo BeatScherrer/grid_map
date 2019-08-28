@@ -5,7 +5,6 @@
 #  grid_map_sdf_EXECUTABLE   - the grid_map_sdf executable
 include(CMakeFindDependencyMacro)
 find_dependency(grid_map_core CONFIG REQUIRED)
-find_dependency(PCL CONFIG REQUIRED COMPONENTS)
 
 include("${CMAKE_CURRENT_LIST_DIR}/grid_map_sdfTargets.cmake")
 

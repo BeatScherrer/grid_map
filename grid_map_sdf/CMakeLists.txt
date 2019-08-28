@@ -6,9 +6,6 @@ project(grid_map_sdf VERSION 1.6.1)
 
 add_compile_options(-std=c++11)
 
-# import PCL
-find_package(PCL REQUIRED CONFIG COMPONENTS)
-
 #########
 # Build #
 #########
@@ -23,24 +20,17 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC
     $<INSTALL_INTERFACE:include/${PROJECT_NAME}> # <prefix>/include/${PROJECT_NAME}
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-    ${PCL_INCLUDE_DIRS}
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
   )
 
 link_directories(
-    ${PCL_LIBRARY_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
     grid_map_core::grid_map_core
-    ${PCL_LIBRARIES}
   )
-
-add_definitions(
-    ${PCL_DEFINITIONS}
-)
 
 # add an alias
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})

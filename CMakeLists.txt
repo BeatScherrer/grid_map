@@ -7,6 +7,8 @@ add_subdirectory(grid_map_core)
 add_subdirectory(grid_map_sdf)
 add_subdirectory(grid_map_lf)
 
+add_subdirectory(submodules)
+
 # Set project name
 project(grid_map VERSION 1.0.0)
 

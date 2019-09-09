@@ -122,4 +122,9 @@ target_link_libraries(test-grid-map-core
     gtest_main
   )
 
-add_test(NAME test-grid-map-core COMMAND test-grid-map-core)
+add_test(
+  NAME
+    test-grid-map-core
+  COMMAND
+    test-grid-map-core
+)

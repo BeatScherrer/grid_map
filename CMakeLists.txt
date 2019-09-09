@@ -1,6 +1,9 @@
 # Set cmake version
 cmake_minimum_required(VERSION 3.0.2)
 
+# Enable testing for subdirectories
+enable_testing()
+
 
 # Add subdirectories
 add_subdirectory(grid_map_core)
@@ -112,9 +115,3 @@ install(FILES
   DESTINATION "lib/cmake/${PROJECT_NAME}")
 
 include(CPack)
-
-#
-# Testing
-#
-
-enable_testing()
